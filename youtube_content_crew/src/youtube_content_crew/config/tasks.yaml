@@ -1,0 +1,41 @@
+research_task:
+  description: >
+    Research the topic '{topic}' thoroughly. Find key facts, 
+    interesting angles, audience pain points, and compelling hooks that would 
+    work well for a YouTube video.
+  expected_output: >
+    A structured research report covering key facts, interesting angles, audience pain points, and potential hooks for the topic.
+  agent: research_agent
+
+fact_checking_task:
+  description: >
+    Review the research report and verify all claims. Flag anything 
+    inaccurate, misleading, or weakly sourced. Produce a cleaned, verified 
+    version of the research.
+  expected_output: >
+    A verified research report with inaccurate or weak claims removed or corrected.
+  agent: fact_checker_agent
+  context: 
+    - research_task
+
+script_writing_task:
+  description: >
+    Using the verified research, write a full YouTube script for 
+    the topic '{topic}'. Include a strong hook, clearly structured sections, 
+    and a call to action at the end.
+  expected_output: >
+    A complete YouTube script with a hook, body sections, and a call to action.
+  agent: script_writer_agent
+  context: 
+    - fact_checking_task
+
+seo_task:
+  description: >
+    Using the script and topic '{topic}', produce a full SEO 
+    package including 3 title options, a keyword-rich description, and a list 
+    of relevant tags.
+  expected_output: >
+    An SEO package containing 3 title options, a video description, and a list of tags.
+  agent: seo_agent
+  context:
+    - script_writing_task
